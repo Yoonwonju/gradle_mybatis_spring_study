@@ -1,7 +1,5 @@
 package gradle_mybatis_spring_study.mapper;
 
-import static org.junit.Assert.fail;
-
 import java.util.List;
 
 import org.apache.ibatis.logging.Log;

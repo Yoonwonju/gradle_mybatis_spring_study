@@ -11,5 +11,11 @@ public interface StudentMapper {
 	Student selectStudentByNoWithResultMap(Student student);
 	//List 또는 Collection, Iterable 인터페이스를 구현한 타입은 ArrayList 타입으로 리턴
 	List<Student> selectStudentByAll();
+	
+	int insertStudent(Student student);
+	
+	int updateStudent(Student student);
+	
+	int deleteStudent(int id);
 
 }
