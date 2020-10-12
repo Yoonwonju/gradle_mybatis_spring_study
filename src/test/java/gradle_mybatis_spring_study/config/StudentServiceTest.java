@@ -19,7 +19,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import gradle_mybatis_spring_study.dto.PhoneNumber;
 import gradle_mybatis_spring_study.dto.Student;
 import gradle_mybatis_spring_study.mapper.StudentMapper;
-import gradle_mybatis_spring_study.mapper.StudentMapperTest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ContextRoot.class} )
@@ -65,7 +64,7 @@ protected static final Log log = LogFactory.getLog(StudentServiceTest.class);
 		int result = mapper.updateStudent(student);
 		Assert.assertEquals(1, result);
 		
-		/////////////////////////////////////
+		////////////////////////////////////////////////////////////////////////
 		
 		student.setEmail("Test@hong.co.kr");
 		student.setPhone(new PhoneNumber("123-123-1234"));

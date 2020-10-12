@@ -32,4 +32,5 @@ public class ContextSqlSession {
     public SqlSessionTemplate sqlSession(SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
+    //SqlSessionTemplate : SqlSession을 구현하고 코드에서 SqlSession를 대체하는 역할
 }

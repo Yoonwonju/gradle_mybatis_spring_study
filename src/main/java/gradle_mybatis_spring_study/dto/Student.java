@@ -8,6 +8,18 @@ public class Student {
 	private String email;
 	private PhoneNumber phone;
 	private Date dob;
+	// Address DTO 만든 후 추가
+	private Address address;
+	// Gender 추가
+	private Gender gender;
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
+	}
 
 	public int getStudId() {
 		return studId;
@@ -54,9 +66,19 @@ public class Student {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	@Override
 	public String toString() {
-		return String.format("Student [%s, %s, %s, %s, %s]", studId, name, email, phone, dob);
+		return String.format("Student [%s, %s, %s, %s, %s, %s, %s]",
+								studId, name, email, phone, dob, address,
+								gender==Gender.FEMALE?"여자":"남자");
 	}
 
 }

@@ -56,4 +56,60 @@
 	<delete id="deleteStudent" parameterType="int">
 		DELETE FROM STUDENTS WHERE STUD_ID = #{studId}
 	</delete>
+	
+	<!-- 결과매핑 -->
+	<resultMap type="Student" id="StudentResult">
+		<id column="stud_id" property="studId"/>
+		<result property="name" column="name"/>
+		<result property="email" column="email"/>
+		<result property="phone" column="phone"/>
+		<result property="dob" column="dob"/>
+	</resultMap>
+	
+	<select id="selectStudentByAllForResultMap" resultMap="StudentResult">
+		<include refid="selectSQL"></include>
+	</select>
+	
+	<!-- HashMap -->
+	<select id="selectStudentByAllForHashMap" resultType="map">
+		<include refid="selectSQL"></include>
+	</select>
+	
+	<!-- 내포된 결과매핑(ResultMap)을 사용한 일대일 매핑 -->
+	<resultMap type="Student" id="StudentAssociation" extends="StudentResult">
+		<association property="address" resultMap="gradle_mybatis_spring_study.mapper.AddressMapper.AddressResult"></association>
+	</resultMap>
+	
+	<select id="selectStudentByNoAssociation" parameterType="Student" resultMap="StudentAssociation">
+		SELECT STUD_ID, NAME, EMAIL, PHONE, DOB, A.ADDR_ID, STREET, CITY, STATE, ZIP, COUNTRY
+  		  FROM STUDENTS S JOIN ADDRESSES A ON S.ADDR_ID=A.ADDR_ID
+         WHERE STUD_ID = #{studId}
+	</select>
+	
+	<!-- enum 타입 다루기 -->
+	<insert id="insertEnumStudent" parameterType="Student">
+		INSERT INTO STUDENTS(STUD_ID, NAME, EMAIL,PHONE, DOB, GENDER)
+		VALUES(#{studId}, #{name}, #{email}, #{phone}, #{dob}, #{gender})
+	</insert>
+	
+	<select id="selectStudentByNoForEnum" parameterType="Student" resultType="Student">
+		SELECT STUD_ID AS studId,NAME,EMAIL,PHONE,DOB,BIO,PIC,ADDR_ID,GENDER
+		  FROM STUDENTS
+		 WHERE STUD_ID = #{studId}
+	</select>
+	
+	<select id="selectStudentByAllForEnum" parameterType="Student" resultType="Student">
+		SELECT STUD_ID AS studId,NAME,EMAIL,PHONE,DOB,BIO,PIC,ADDR_ID,GENDER FROM STUDENTS
+	</select>
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
