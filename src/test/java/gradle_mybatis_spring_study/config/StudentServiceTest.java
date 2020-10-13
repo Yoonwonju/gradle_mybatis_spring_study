@@ -3,6 +3,8 @@ package gradle_mybatis_spring_study.config;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
@@ -19,6 +21,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import gradle_mybatis_spring_study.dto.PhoneNumber;
 import gradle_mybatis_spring_study.dto.Student;
 import gradle_mybatis_spring_study.mapper.StudentMapper;
+import gradle_mybatis_spring_study.service.StudentService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ContextRoot.class} )
@@ -34,6 +37,9 @@ protected static final Log log = LogFactory.getLog(StudentServiceTest.class);
 	
 	@Autowired
 	private StudentMapper mapper;
+	
+	@Autowired
+	private StudentService service;
 	
 	@Test
 	public void test01InsertStudent() {
@@ -78,5 +84,29 @@ protected static final Log log = LogFactory.getLog(StudentServiceTest.class);
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
 		int deleteStudent = mapper.deleteStudent(3);
 		Assert.assertEquals(1, deleteStudent);
+	}
+	
+	////////////////////////////////////
+	
+	@Test
+	public void test16SelectStudentForMap() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+		
+		Map<Integer, String> map = service.selectStudentForMap(1);
+		Assert.assertNotNull(map);
+		for(Entry<Integer, String> entry : map.entrySet()) {
+			System.out.printf("key(%s) --- value(%s)%n", entry.getKey(), entry.getValue());
+		}
+	}
+	
+	@Test
+	public void test17SelectStudentForMap2() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+		
+		Map<Integer, Student> map = service.selectStudentForMap2(1);
+		Assert.assertNotNull(map);
+		for(Entry<Integer, Student> entry : map.entrySet()) {
+			System.out.printf("key(%s) --- value(%s)%n", entry.getKey(), entry.getValue());
+		}
 	}
 }

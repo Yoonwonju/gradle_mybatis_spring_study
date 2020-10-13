@@ -33,4 +33,11 @@ public interface StudentMapper {
 	Student selectStudentByNoForEnum(Student student);
 	List<Student> selectStudentByAllForEnum();
 	
+	/* 여러 개의 입력 파라미터 전달 */
+	Student selectStudentByMap(Map<String, String> map);
+	List<Student> selectAllStudentByMap(Map<String, String> map);
+	
+	/* ResultSet 처리방식의 재정의 */ 
+	Map<Integer, Student> selectStudentForMap(Student student);
+
 }

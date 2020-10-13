@@ -33,7 +33,7 @@ protected static final Log log = LogFactory.getLog(StudentMapperTest.class);
 	private TutorMapper mapper;
 	
 	@Test
-	public void test01SelectTutorByTutorId() {
+	public void test10SelectTutorByTutorId() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
 		Tutor findTutor = new Tutor();
 		findTutor.setTutorId(1);
