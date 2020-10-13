@@ -5,7 +5,83 @@
 		<id property="courseId" column="course_id"/>
 		<result property="name" column="name"/>
 		<result property="description" column="description"/>
-		<result property="startDate" column="startDate"/>
-		<result property="endDate" column="endDate"/>
+		<result property="startDate" column="start_date"/>
+		<result property="endDate" column="end_date"/>
 	</resultMap>
+	
+	<sql id="selectSql">
+		SELECT COURSE_ID,NAME,DESCRIPTION,START_DATE,END_DATE,TUTOR_ID FROM COURSES
+	</sql>
+	
+	<sql id="whereSql">
+		<where>
+			<if test="tutorId != null">
+				and tutor_id = #{tutorId}
+			</if>
+			<if test="courseName != null">
+				and name like #{courseName}
+			</if>
+			<if test="startDate != null">
+				and start_date &gt;= #{startDate}
+			</if>
+			<if test="endDate != null">
+				and end_date &lt;= #{endDate}
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 동적SQL - if 조건 -->
+	<select id="selectCoursesByCondition" parameterType="map" resultMap="CourseResult">
+		<include refid="selectSql"></include>
+		<include refid="whereSql"></include>
+	</select>
+	
+	<!-- 동적SQL - choose 조건 -->
+	<select id="selectCaseCourses" parameterType="map" resultMap="CourseResult">
+		<include refid="selectSql"></include>
+		<choose>
+			<when test="searchBy == 'Tutor'">
+				WHERE TUTOR_ID = #{tutorId}
+			</when>
+			<when test="searchBy == 'CourseName'">
+				WHERE NAME LIKE #{courseName}
+			</when>
+			<otherwise>
+				WHERE END_DATE &gt;= now()
+			</otherwise>
+		</choose>
+	</select>
+	
+	<!-- 동적SQL - where 조건 -->
+	<sql id="whereSqlCDATA">
+		<where>
+			<if test="tutorId != null">
+				<![CDATA[and tutor_id = #{tutorId}]]>
+			</if>
+			
+			<if test="courseName != null">
+				<![CDATA[and name like #{courseName}]]>
+			</if>
+			
+			<if test="startDate != null">
+				<![CDATA[and start_date >= #{startDate}]]>
+			</if>
+			
+			<if test="endDate != null">
+				<![CDATA[and end_date <= #{endDate}]]>
+			</if>
+		</where>
+	</sql>
+	
+	<select id="selectWhereCourses" parameterType="map" resultMap="CourseResult">
+		<include refid="selectSql" />
+		<include refid="whereSqlCDATA" />
+	</select>
 </mapper>
+
+
+
+
+
+
+

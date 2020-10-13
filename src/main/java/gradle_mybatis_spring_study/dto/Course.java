@@ -12,7 +12,7 @@ public class Course {
 
 	@Override
 	public String toString() {
-		return String.format("Course [courseId=%s, name=%s, description=%s, startDate=%s, endDate=%s, tutorId=%s]",
+		return String.format("Course [%s, %s, %s, %s, %s, %s]",
 				courseId, name, description, startDate, endDate, tutorId);
 	}
 

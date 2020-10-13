@@ -1,6 +1,7 @@
 package gradle_mybatis_spring_study.mapper;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
@@ -98,7 +99,7 @@ protected static final Log log = LogFactory.getLog(StudentMapperTest.class);
 	}
 	
 	@Test
-	public void test07insertEnumStudent() {
+	public void test07InsertEnumStudent() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		
 		Calendar newDate = GregorianCalendar.getInstance();
@@ -165,7 +166,7 @@ protected static final Log log = LogFactory.getLog(StudentMapperTest.class);
 	}
 	
 	@Test
-	public void test15SelectStudentByMap() {
+	public void test15SelectAllStudentByMap() {
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		Map<String, String> maps = new HashMap<String, String>();
 		maps.put("name", "Timothy");
@@ -189,4 +190,48 @@ protected static final Log log = LogFactory.getLog(StudentMapperTest.class);
 	}
 	
 	
+	@Test
+	public void test01InsertStudent() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+		Calendar newDate = GregorianCalendar.getInstance();
+		newDate.set(1990, 2, 28);
+		
+		Student student = new Student();
+		student.setStudId(3);
+		student.setName("홍길동");
+		student.setEmail("lee@test.co.kr");
+		student.setPhone(new PhoneNumber("010-123-1234"));
+		student.setDob(newDate.getTime());
+		int res = mapper.insertStudent(student);
+		Assert.assertEquals(1, res);
+	}
+	
+	@Test
+	public void test02UpdateStudent() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+		Student student = new Student();
+		student.setStudId(3);
+		student.setName("홍길동");
+		student.setEmail("hong@hong.co.kr");
+		student.setPhone(new PhoneNumber("010-1544-7979"));
+		student.setDob(new Date());
+		
+		int result = mapper.updateStudent(student);
+		Assert.assertEquals(1, result);
+		
+		////////////////////////////////////////////////////////////////////////
+		
+		student.setEmail("Test@hong.co.kr");
+		student.setPhone(new PhoneNumber("123-123-1234"));
+		student.setDob(new GregorianCalendar(1944, 7, 9).getTime());
+		result = mapper.updateStudent(student);
+		Assert.assertEquals(1, result);
+	}
+	
+	@Test
+	public void test03DeleteStudent() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+		int deleteStudent = mapper.deleteStudent(3);
+		Assert.assertEquals(1, deleteStudent);
+	}
 }
