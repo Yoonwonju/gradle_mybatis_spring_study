@@ -1,7 +1,5 @@
 package gradle_mybatis_spring_study.dto;
 
-import java.util.Arrays;
-
 public class UserPic {
 	private int id;
 	private String name;
@@ -10,7 +8,7 @@ public class UserPic {
 
 	@Override
 	public String toString() {
-		return String.format("UserPic [id=%s, name=%s, pic=%s, bio=%s]", id, name, Arrays.toString(pic), bio);
+		return String.format("UserPic [id=%s, name=%s, pic=%s, bio=%s]", id, name, pic.length, bio);
 	}
 
 	public int getId() {

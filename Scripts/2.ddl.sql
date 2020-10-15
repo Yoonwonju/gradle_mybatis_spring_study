@@ -54,8 +54,10 @@ addr_id NUMBER /* 주소코드 */
 );
 
 ALTER TABLE tutors ADD CONSTRAINT PRIMARY PRIMARY KEY (tutor_id);
-ALTER TABLE courses  ADD    CONSTRAINT  FK_COURSE_TUTOR  FOREIGN  KEY  (tutor_id)	REFERENCES tutors (tutor_id);  ALTER TABLE course_enrollment ADD CONSTRAINT FK_ENROLLMENT_COURSE FOREIGN KEY (course_id) REFERENCES courses  (course_id);
-ALTER TABLE course_enrollment ADD CONSTRAINT FK_ENROLLMENT_STUD FOREIGN KEY (stud_id) REFERENCES students (stud_id);  ALTER TABLE students ADD CONSTRAINT FK_STUDENTS_ADDR FOREIGN KEY ( addr_id ) REFERENCES addresses (addr_id);
+ALTER TABLE courses  ADD    CONSTRAINT  FK_COURSE_TUTOR  FOREIGN  KEY  (tutor_id)	REFERENCES tutors (tutor_id);  
+ALTER TABLE course_enrollment ADD CONSTRAINT FK_ENROLLMENT_COURSE FOREIGN KEY (course_id) REFERENCES courses  (course_id);
+ALTER TABLE course_enrollment ADD CONSTRAINT FK_ENROLLMENT_STUD FOREIGN KEY (stud_id) REFERENCES students (stud_id);  
+ALTER TABLE students ADD CONSTRAINT FK_STUDENTS_ADDR FOREIGN KEY ( addr_id ) REFERENCES addresses (addr_id);
 ALTER TABLE tutors ADD CONSTRAINT FK_TUTORS_ADDR FOREIGN KEY (addr_id) REFERENCES addresses ( addr_id );
 
 -- Student Table gender COLUMN ADD

@@ -42,6 +42,7 @@ protected static final Log log = LogFactory.getLog(StudentMapperTest.class);
 	
 	@Test
 	public void test01SelectStudentByNo() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		System.out.println("testSelectStudentByNo()");
 		Student student = new Student();
 		student.setStudId(1);
@@ -52,6 +53,7 @@ protected static final Log log = LogFactory.getLog(StudentMapperTest.class);
 
 	@Test
 	public void test02SelectStudentByNoWithResultMap() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		System.out.println("testSelectStudentByNoWithResultMap()");
 		Student student = new Student();
 		student.setStudId(1);
@@ -62,6 +64,7 @@ protected static final Log log = LogFactory.getLog(StudentMapperTest.class);
 	
 	@Test
 	public void test03SelectStudentByAll() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		System.out.println("testSelectStudentByAll()");
 		List<Student> list = mapper.selectStudentByAll();
 		Assert.assertNotNull(list);
@@ -70,6 +73,7 @@ protected static final Log log = LogFactory.getLog(StudentMapperTest.class);
 	
 	@Test
 	public void test04SelectStudentByAllForResultMap() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		System.out.println("test04SelectStudentByAllForResultMap()");
 		List<Student> list = mapper.selectStudentByAllForResultMap();
 		Assert.assertNotNull(list);
@@ -233,5 +237,24 @@ protected static final Log log = LogFactory.getLog(StudentMapperTest.class);
 		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
 		int deleteStudent = mapper.deleteStudent(3);
 		Assert.assertEquals(1, deleteStudent);
+	}
+	
+	@Test
+	public void test16UpdateSetStudent() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName() + "()");
+		Student student = new Student();
+		student.setStudId(3);
+		student.setPhone(new PhoneNumber("111-1544-7979"));
+		student.setDob(new Date());
+		
+		int result = mapper.updateSetStudent(student);
+		Assert.assertEquals(1, result);
+		
+		student.setStudId(4);
+		student.setPhone(new PhoneNumber("222-0070-0900"));
+		student.setDob(new GregorianCalendar(1544, 11, 11).getTime());
+		
+		result = mapper.updateSetStudent(student);
+		Assert.assertEquals(1, result);
 	}
 }
