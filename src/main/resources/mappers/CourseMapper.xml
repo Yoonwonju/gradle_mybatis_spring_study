@@ -132,6 +132,8 @@
 		WHERE COURSE_ID = #{courseId}
 	</sql>
 	
+	
+	<!-- 기본형(숫자)은 " > 0 " -->
 	<update id="updateCourses" parameterType="Course">
 		UPDATE COURSES
 		<set>
@@ -152,7 +154,7 @@
 			<foreach collection="courseIds" item="courseId" open="(" close=")" separator=",">
 	               #{courseId}
 			</foreach>
-         </where>
+		</where>
     </delete>
 	<!-- <delete id="deleteCourses" parameterType="map">
 		DELETE FROM COURSES WHERE 
@@ -161,4 +163,16 @@
 		</foreach>
 		SELECT FROM DUAL
 	</delete> -->
+	
+	<!-- transaction -->
+	<insert id="insertCourse" parameterType="Course">
+		INSERT INTO COURSES(COURSE_ID,NAME,DESCRIPTION,START_DATE,END_DATE,TUTOR_ID)
+		VALUES(#{courseId}, #{name}, #{description}, #{startDate}, #{endDate}, #{tutorId})
+	</insert>
+	
+	<delete id="deleteCourse">
+		DELETE FROM COURSES
+		 WHERE COURSE_ID = #{courseId}
+	</delete>
+	
 </mapper>

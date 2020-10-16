@@ -197,11 +197,28 @@ public class CourseMapperTest {
 
 	@Test
 	public void test10DeleteCourses() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
 		List<Integer> courseIds = Arrays.asList(4, 5, 6);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("courseIds", courseIds);
 		
 		int res = mapper.deleteCourses(map);
 		Assert.assertEquals(3, res);
+	}
+	
+	@Test
+	public void test11InsertCourseAndDeleteCourse() {
+		log.debug(Thread.currentThread().getStackTrace()[1].getMethodName()+"()");
+		Course course = new Course(5, "JAVA SPRING5", "java programing into spring tool", new Date(), new Date(), 4);
+		int res = mapper.insertCourse(course);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("tutorId", 4);
+		
+		List<Course> list = mapper.selectCoursesByCondition(map);
+		list.stream().forEach(System.out::println);
+		
+		res += mapper.deleteCourse(course.getCourseId());
+		Assert.assertEquals(2, res);
 	}
 }

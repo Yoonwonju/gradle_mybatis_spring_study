@@ -26,4 +26,7 @@ public interface CourseMapper {
 	int deleteCourses(Map<String, Object> map);
 	int updateCourses(Course course);
 	
+	/* Transaction */
+	int insertCourse(Course course);
+	int deleteCourse(int courseId);
 }
